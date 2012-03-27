@@ -1,0 +1,21 @@
+name: SimpleMedic
+version: 1.0
+description: A Minecraft, professional medic at your aide.
+author: never2nv
+main: me.never2nv.SimpleMedic.SimpleMedic
+commands:
+     medic:
+              description: Need a medic? Request one now!
+              permission: simplemedic.heal
+     med:
+              description: Need a medic? Request one now!
+              permission: simplemedic.heal
+
+permissions:
+  simplemedic.*:
+    description: Gives access to all Medic commands
+    children:
+      simplemedic.heal: true
+  simplemedic.heal:
+    description: Allows you request a medic to heal yourself or player.
+    default: op
