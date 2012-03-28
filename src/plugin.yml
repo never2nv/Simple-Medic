@@ -10,6 +10,9 @@ commands:
      med:
               description: Need a medic? Request one now!
               permission: simplemedic.heal
+     burn:
+              description: Need a medic? Request one now!
+              permission: simplemedic.burn
 
 permissions:
   simplemedic.*:
@@ -18,4 +21,7 @@ permissions:
       simplemedic.heal: true
   simplemedic.heal:
     description: Allows you request a medic to heal yourself or player.
+    default: op
+  simplemedic.burn:
+    description: Allows you to set someone on fire or yourself.
     default: op
