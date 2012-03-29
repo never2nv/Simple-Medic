@@ -1,7 +1,6 @@
 package me.never2nv.SimpleMedic;
 
 import java.util.logging.Logger;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,8 +15,6 @@ public class SimpleMedic extends JavaPlugin{
     public static Economy econ = null;
 	public final Logger logger = Logger.getLogger("Minecraft)");
 	public static SimpleMedic plugin;
-    //Set the cost here, e.g. get it from a config
-    int cost = 20;
 	
 	@Override
 	public void onDisable() {
@@ -27,8 +24,7 @@ public class SimpleMedic extends JavaPlugin{
 	
 	@Override
 	public void onEnable() {
-        //Tells the other code to check for economy and if not found to disable the plugin
-        //(Could be changed to just disbale the econ feature)
+        
         if (!setupEconomy() ) {
             System.out.println("[Medic] has been disabled because vault is not found");
             getServer().getPluginManager().disablePlugin(this);
@@ -36,10 +32,8 @@ public class SimpleMedic extends JavaPlugin{
         } else {
 		PluginDescriptionFile pdffile = this.getDescription();
 		this.logger.info("Well would ya look at that? " + pdffile.getName() + " Version " + pdffile.getVersion() + " has been enabled!");
-		
-		//Get config file and copy it's defaults & save.
-		//# getConfig().options().copyDefaults(true);
-		// # saveConfig();
+                getConfig().options().copyDefaults(true);
+		saveConfig();
 		
 	}
     	}
@@ -59,20 +53,14 @@ public class SimpleMedic extends JavaPlugin{
 
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+		boolean econenabled = plugin.getConfig().getBoolean("econ-enabled");
+		int cost = plugin.getConfig().getInt("econ-cost");
 		Player player = (Player) sender;
 		if(commandLabel.equalsIgnoreCase("medic") || commandLabel.equalsIgnoreCase("med")){
 
 			
 			if(args.length == 0){
-				
-				// I Don't know how to plug into vault yet??
-				// I know player.sendMessage(getConfig().getString("economy-cost")); would spit out the value of how much
-				// it would cost, but how do I link "economy-cost" value in config to the cost on vault?
-				// I imagine we define the int cost as getConfig().getString("economy-cost"); ?
-				
-				// # cost = getConfig().getString("economy-cost");
-				// but then we'd make int cost, string cost? Right? Just a guess not knowing vault api whatsoever lol.
-				
+				if(econenabled) {
                 EconomyResponse r = econ.withdrawPlayer(player.getName(), cost);
                 if(r.transactionSuccess()) {
                     //If the transaction succeeds it heals them else it tells them the error
@@ -87,9 +75,16 @@ public class SimpleMedic extends JavaPlugin{
                 else {
                     player.sendMessage(String.format("An error occured: %s", r.errorMessage));
                 }
+			} else {
+	            player.setHealth(20);
+                    player.setFireTicks(0);
+                    player.chat("/me " + ChatColor.DARK_RED + "just got healed by a " + ChatColor.GREEN + "Medic!");
+                    player.sendMessage(ChatColor.GREEN + "[MEDIC] " + ChatColor.WHITE + "You've Been Healed!");	
+			}
 			}
 			
                 else if(args.length == 1){
+                	if(econenabled) {
                 EconomyResponse r = econ.withdrawPlayer(player.getName(), cost);
                 if(r.transactionSuccess()) {
                     //See above :D
@@ -110,7 +105,14 @@ public class SimpleMedic extends JavaPlugin{
                     
                     else {
                     player.sendMessage(String.format("An error occured: %s", r.errorMessage));
+                         } else {
+                        targetPlayer.setHealth(20);
+                        targetPlayer.setFireTicks(0);
+                        targetPlayer.getBedSpawnLocation();
+                        player.chat("/me " + ChatColor.DARK_RED + "just got healed by a " + ChatColor.GREEN + "Medic!");
+                        player.sendMessage(ChatColor.GREEN + "[MEDIC] " + ChatColor.WHITE + "You've Been Healed!");	
                          }
+                	}
                     
 				
 		return false;
