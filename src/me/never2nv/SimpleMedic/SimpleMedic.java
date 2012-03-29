@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -35,8 +36,13 @@ public class SimpleMedic extends JavaPlugin{
         } else {
 		PluginDescriptionFile pdffile = this.getDescription();
 		this.logger.info("Well would ya look at that? " + pdffile.getName() + " Version " + pdffile.getVersion() + " has been enabled!");
+		
+		//Get config file and copy it's defaults & save.
+		//# getConfig().options().copyDefaults(true);
+		// # saveConfig();
+		
 	}
-    }
+    	}
     
     private boolean setupEconomy() {
         //The actual code to search for an economy to use
@@ -49,13 +55,24 @@ public class SimpleMedic extends JavaPlugin{
         }
         econ = rsp.getProvider();
         return econ != null;
-    }
+}
+
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		Player player = (Player) sender;
 		if(commandLabel.equalsIgnoreCase("medic") || commandLabel.equalsIgnoreCase("med")){
 
+			
 			if(args.length == 0){
+				
+				// I Don't know how to plug into vault yet??
+				// I know player.sendMessage(getConfig().getString("economy-cost")); would spit out the value of how much
+				// it would cost, but how do I link "economy-cost" value in config to the cost on vault?
+				// I imagine we define the int cost as getConfig().getString("economy-cost"); ?
+				
+				// # cost = getConfig().getString("economy-cost");
+				// but then we'd make int cost, string cost? Right? Just a guess not knowing vault api whatsoever lol.
+				
                 EconomyResponse r = econ.withdrawPlayer(player.getName(), cost);
                 if(r.transactionSuccess()) {
                     //If the transaction succeeds it heals them else it tells them the error
@@ -65,11 +82,14 @@ public class SimpleMedic extends JavaPlugin{
                     player.chat("/me " + ChatColor.DARK_RED + "just got healed by a " + ChatColor.GREEN + "Medic!");
                     player.sendMessage(ChatColor.GREEN + "[MEDIC] " + ChatColor.WHITE + "You've Been Healed!");
                     
-                } else {
-                    player.sendMessage(String.format("An error occured: %s", r.errorMessage));
+                } 
                 
+                else {
+                    player.sendMessage(String.format("An error occured: %s", r.errorMessage));
+                }
 			}
-			else if(args.length == 1){
+			
+                else if(args.length == 1){
                 EconomyResponse r = econ.withdrawPlayer(player.getName(), cost);
                 if(r.transactionSuccess()) {
                     //See above :D
@@ -80,13 +100,18 @@ public class SimpleMedic extends JavaPlugin{
                         targetPlayer.getBedSpawnLocation();
                         player.chat("/me " + ChatColor.DARK_RED + "just got healed by a " + ChatColor.GREEN + "Medic!");
                         player.sendMessage(ChatColor.GREEN + "[MEDIC] " + ChatColor.WHITE + "You've Been Healed!");
-                    }else{
+                    }
+                    
+                    else {
                         // checks to see if player is online, else displays this message!
                         player.sendMessage(ChatColor.RED + "PLAYER IS NOT ONLINE!");
-                    
-                } else {
-                    player.sendMessage(String.format("An error occured: %s", r.errorMessage));
+                         } 
                 }
+                    
+                    else {
+                    player.sendMessage(String.format("An error occured: %s", r.errorMessage));
+                         }
+                    
 				
 		return false;
 		}
@@ -94,5 +119,6 @@ public class SimpleMedic extends JavaPlugin{
 		
 	}
 		return false;
+	}
 }
-}
+

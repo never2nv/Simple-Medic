@@ -1,0 +1,7 @@
+# Default Simple Medic Configuration File.
+#
+# Economy cost to use for vault.
+economy-cost: 20
+#
+# Cool down time in seconds.
+medic-cooldown: 300
