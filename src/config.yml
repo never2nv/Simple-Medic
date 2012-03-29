@@ -1,5 +1,8 @@
 # Default Simple Medic Configuration File.
 #
+# Is economy function enabled?
+econ-enabled: true
+#
 # Economy cost to use for vault.
 economy-cost: 20
 #
