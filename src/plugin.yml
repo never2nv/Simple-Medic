@@ -6,10 +6,8 @@ main: me.never2nv.SimpleMedic.SimpleMedic
 commands:
      medic:
               description: Need a medic? Request one now!
-              permission: simplemedic.heal
      med:
               description: Need a medic? Request one now!
-              permission: simplemedic.heal
      burn:
               description: Need a medic? Request one now!
               permission: simplemedic.burn
@@ -20,7 +18,10 @@ permissions:
     children:
       simplemedic.heal: true
   simplemedic.heal:
-    description: Allows you request a medic to heal yourself or player.
+    description: Allows you request a medic to heal yourself.
+    default: op
+  simplemedic.heal.others:
+    description: Allows you request a medic to heal another player.
     default: op
   simplemedic.burn:
     description: Allows you to set someone on fire or yourself.
