@@ -6,10 +6,8 @@ main: me.never2nv.SimpleMedic.SimpleMedic
 commands:
      medic:
               description: Need a medic? Request one now!
-              permission: simplemedic.heal
      med:
               description: Need a medic? Request one now!
-              permission: simplemedic.heal
      burn:
               description: Need a medic? Request one now!
               permission: simplemedic.burn
