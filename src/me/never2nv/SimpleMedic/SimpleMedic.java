@@ -60,6 +60,7 @@ public class SimpleMedic extends JavaPlugin{
 
 			
 			if(args.length == 0){
+				if(player.hasPermission("simplemedic.heal")|| player.hasPermission("simplemedic.*") {
 				if(econenabled) {
                 EconomyResponse r = econ.withdrawPlayer(player.getName(), cost);
                 if(r.transactionSuccess()) {
@@ -82,8 +83,9 @@ public class SimpleMedic extends JavaPlugin{
                     player.sendMessage(ChatColor.GREEN + "[MEDIC] " + ChatColor.WHITE + "You've Been Healed!");	
 			}
 			}
-			
+			}
                 else if(args.length == 1){
+                	if(player.hasPermission("simplemedic.heal.others") || player.hasPermission("simplemedic.*") ) {
                 	if(econenabled) {
                 EconomyResponse r = econ.withdrawPlayer(player.getName(), cost);
                 if(r.transactionSuccess()) {
@@ -112,6 +114,7 @@ public class SimpleMedic extends JavaPlugin{
                         player.chat("/me " + ChatColor.DARK_RED + "just got healed by a " + ChatColor.GREEN + "Medic!");
                         player.sendMessage(ChatColor.GREEN + "[MEDIC] " + ChatColor.WHITE + "You've Been Healed!");	
                          }
+                	}
                 	}
                     
 				
