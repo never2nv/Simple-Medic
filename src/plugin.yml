@@ -20,7 +20,10 @@ permissions:
     children:
       simplemedic.heal: true
   simplemedic.heal:
-    description: Allows you request a medic to heal yourself or player.
+    description: Allows you request a medic to heal yourself.
+    default: op
+  simplemedic.heal.others:
+    description: Allows you request a medic to heal another player.
     default: op
   simplemedic.burn:
     description: Allows you to set someone on fire or yourself.
