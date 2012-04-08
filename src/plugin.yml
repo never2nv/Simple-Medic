@@ -11,6 +11,10 @@ commands:
      burn:
               description: Burn those players!
               permission: simplemedic.burn
+     extme:
+              description: Extinguishes the fire that is burning you!
+     extinguishme:
+              description: Extinguishes the fire that is burning you!
 
 permissions:
   simplemedic.*:
@@ -25,4 +29,10 @@ permissions:
     default: op
   simplemedic.burn:
     description: Allows you to set someone on fire or yourself.
+    default: op
+  simplemedic.ext:
+    description: Allows you to use /extme.
+    default: op
+  simplemedic.ext.others:
+    description: Allows you to use /extme on another player
     default: op
