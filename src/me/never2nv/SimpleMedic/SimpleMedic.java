@@ -56,6 +56,21 @@ public class SimpleMedic extends JavaPlugin{
 		boolean econenabled = plugin.getConfig().getBoolean("econ-enabled");
 		int cost = plugin.getConfig().getInt("econ-cost");
 		Player player = (Player) sender;
+		if(commandLabel.equalsIgnoreCase("extme") || commandLabel.equalsIgnoreCase("extinguishme")){
+			if(args.length == 0){
+				if(player.hasPermission("simplemedic.ext")|| player.hasPermission("simplemedic.*") {
+				player.sendMessage(ChatColor.DARK_RED + "[MEDIC] You have been extinguished!");	
+				player.setFireTicks(0);
+			}else if(args.length == 1){
+				if(player.hasPermission("simplemedic.ext.others")|| player.hasPermission("simplemedic.*") {
+		                Player target = player.getServer().getPlayer(args[0]); 
+				target.setFireTicks(0);
+				player.sendMessage(ChatColor.DARK_RED + "[MEDIC] " + target.getName() + " has been extinguished!");
+			        target.sendMessage(ChatColor.DARK_RED + "[MEDIC] You have been extinguished!");
+				}else {
+				player.sendMessage(ChatColor.DARK_RED + "[MEDIC] Error: Incorrect usage.");
+			}
+		}
 		if(commandLabel.equalsIgnoreCase("medic") || commandLabel.equalsIgnoreCase("med")){
 
 			
