@@ -9,7 +9,7 @@ commands:
      med:
               description: Need a medic? Request one now!
      burn:
-              description: Need a medic? Request one now!
+              description: Burn those players!
               permission: simplemedic.burn
 
 permissions:
